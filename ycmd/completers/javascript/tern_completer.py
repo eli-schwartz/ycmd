@@ -71,7 +71,7 @@ def ShouldEnableTernCompleter():
 
   _logger.info( 'Using node binary from: ' + PATH_TO_NODE )
 
-  installed = os.path.exists( PATH_TO_TERN_BINARY )
+  installed = utils.FindExecutable( PATH_TO_TERN_BINARY )
 
   if not installed:
     _logger.info( 'Not using Tern completer: not installed at ' +
@@ -274,7 +274,7 @@ class TernCompleter( Completer ):
       tern_server = responses.DebugInfoServer(
         name = 'Tern',
         handle = self._server_handle,
-        executable = PATH_TO_TERN_BINARY,
+        executable = utils.FindExecutable( PATH_TO_TERN_BINARY ),
         address = SERVER_HOST,
         port = self._server_port,
         logfiles = [ self._server_stdout, self._server_stderr ],
