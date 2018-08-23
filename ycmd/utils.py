@@ -275,8 +275,14 @@ def FindExecutable( executable ):
   # If we're given a path with a directory part, look it up directly rather
   # than referring to PATH directories. This includes checking relative to the
   # current directory, e.g. ./script
-  if os.path.dirname( executable ):
-    return GetExecutable( executable )
+  if os.path.split( executable )[0]:
+      exe = GetExecutable( executable ):
+      if exe:
+          return exe
+
+  # Fall back on looking it up in the PATH. This includes checking for system
+  # versions of a bundled tool.
+  executable = os.path.basename( executable )
 
   paths = os.environ[ 'PATH' ].split( os.pathsep )
 
